@@ -17,12 +17,12 @@ const playRound = function(playerSelection, computerSelection){
             };
             if (computerSelection === 'Paper'){
                 console.log("Paper beats Rock, point computer");
-                return 0;
+                return -1;
             };
         case 'Paper':
             if (computerSelection === 'Scissors'){
                 console.log("Scissors beats Paper, point computer");
-                return 0;
+                return -1;
             };
             if (computerSelection === 'Rock'){
                 console.log("Paper beats Rock, point human");
@@ -35,7 +35,7 @@ const playRound = function(playerSelection, computerSelection){
             };
             if (computerSelection === 'Rock'){
                 console.log("Rock beats Scissors, point computer");
-                return 0;
+                return -1;
             };
         default:
             console.log('Something went wrong')
@@ -47,7 +47,7 @@ const game = function(){
     for(let i = 0; i < 5; i++){
         score += playRound(prompt('Pick your weapon: Rock, Paper, or Scissors'));
     }
-    return score >= 3 ? "Human Winner!" : "Computer Winner!"
+    return score === 0 ? "It's a tie...": score > 0 ? "Human Winner!" : "Computer Winner!"
 }
 
 console.log(game())
