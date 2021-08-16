@@ -3,43 +3,50 @@ const computerPlay = function(){
     return options[Math.floor(Math.random()*3)]
 }
 
-const playRound = function(playerSelection, computerSelection){
-    const playerFormatted = playerSelection.slice(0,1).toUpperCase() + playerSelection.slice(1).toLowerCase();
+const mainContainer = document.querySelector('.container')
+const winnerText = document.querySelector('p')
+const messageContainer = document.querySelector('.winner')
+
+const playRound = function(e){
+    const playerSelection = e.target.closest('button');
+    if(!playerSelection) return;
+    if(messageContainer.classList.contains('hidden')) messageContainer.classList.remove('hidden')
     computerSelection = computerPlay();
-    switch(playerFormatted){
+    switch(playerSelection.getAttribute('id')){
         case computerSelection:
-           console.log("It's a tie!");
-           return 0;
+           winnerText.innerText = "It's a tie!";
+           break;
         case 'Rock':
             if (computerSelection === 'Scissors'){
-                console.log("Rock beats Scissors, point human");
-                return 1;
+                winnerText.innerText = "Rock beats Scissors, point human";
+                break;
             };
             if (computerSelection === 'Paper'){
-                console.log("Paper beats Rock, point computer");
-                return -1;
+                winnerText.innerText = "Paper beats Rock, point computer";
+                break;
             };
         case 'Paper':
             if (computerSelection === 'Scissors'){
-                console.log("Scissors beats Paper, point computer");
-                return -1;
+                winnerText.innerText = "Scissors beats Paper, point computer";
+                break;
             };
             if (computerSelection === 'Rock'){
-                console.log("Paper beats Rock, point human");
-                return 1;
+                winnerText.innerText = "Paper beats Rock, point human";
+                break;
             };
         case 'Scissors':
             if (computerSelection === 'Paper'){
-                console.log("Scissors beats Paper, point human");
-                return 1;
+                winnerText.innerText = "Scissors beats Paper, point human";
+                break;
             };
             if (computerSelection === 'Rock'){
-                console.log("Rock beats Scissors, point computer");
-                return -1;
+                winnerText.innerText = "Rock beats Scissors, point computer";
+                break;
             };
         default:
-            console.log('Something went wrong')
+            break;
    }
+
 }
 
 const game = function(){
@@ -50,4 +57,7 @@ const game = function(){
     return score === 0 ? "It's a tie...": score > 0 ? "Human Winner!" : "Computer Winner!"
 }
 
-console.log(game())
+const btnContainer = document.querySelector('.play-area');
+
+btnContainer.addEventListener('click', playRound);
+
